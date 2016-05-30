@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>照片墙</title>
+	<style type="text/css">
+     body{
+     	background-color: #000;
+     	overflow: hidden;
+     }
+     .d1{
+     	 padding: 10px;
+        background: #FFF;
+        text-align: center;
+        width: auto;
+        position: absolute;
+
+     }
+     .cover{
+     	position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+     }
+ 
+	</style>
+	
+</head>
+<body>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/1.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/2.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/3.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/4.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/5.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/6.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/7.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/8.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/9.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	<div class="d1">
+		<div class="cover"></div>
+		<img src="images/10.png">
+		<p>这里这里，可以旋转</p>
+	</div>
+	</body>
+	<script type="text/javascript">
+
+        var covers1;
+        var pre=null;
+		window.onload=function(){
+		 covers1=getbyclassname('div','cover');
+             pre=covers1[0];
+             show();
+		}
+
+
+
+
+		function show(){
+			var winH=win('height');
+			var winW=win('width');
+			for(var i=0;i<covers1.length;i++){
+				var c=covers1[i];
+				var top1=Math.random()*(winH-c.offsetHeight);
+				var left1=Math.random()*(winW-c.offsetWidth);
+				var de=Math.random()*45;
+			     if(i%2==0){de=-de;}	
+			     c.parentNode.style.top=top1+'px';
+			     c.parentNode.style.left=left1+'px';
+		          c.parentNode.style.transform='rotate('+de+'deg)';
+		       c.onclick=function(){
+			pre.parentNode.style.zIndex=0;
+			this.parentNode.style.zIndex=10;
+			pre=this;
+			drag(this.parentNode);
+		      }
+			}
+		}
+		function getbyclassname(tagname,classname){
+			var allclass=document.getElementsByTagName(tagname);
+			var result1=[];
+			for(var i=0;i<allclass.length;i++){
+				if(classname==allclass[i].className){
+                 result1.push(allclass[i]);
+				}
+			}
+			return result1;
+		}
+		//获取可是窗口的大小
+		function win(attr){
+			switch(attr){
+			   case 'width':
+			      return window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+			      break;
+			   case 'height':
+			      return window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+			      break;   
+			}
+		}
+		
+	// 	function show(){
+	// 		var winW=win('width');
+	// 		var winH=win('height');
+	// 		for(var i=0;i<covers.length;i++){
+	// 			var c=covers[i];
+ //              var top=Math.random()*(winH-c.offsetHeight);
+ //              var left=Math.random()*(winW-c.offsetWidth*1.5);
+ //              var deg1=Math.random()*45;
+ //              if(i%2==0){
+ //              	deg1=-deg1;
+ //              }
+ //              c.parentNode.style.top=top+'px';
+ //              c.parentNode.style.left=left+'px';
+ //              c.parentNode.style.transform='rotate('+deg1+'deg)';
+ //              c.onclick=function(){
+	// 		pre.parentNode.style.zIndex=0;
+	// 		this.parentNode.style.zIndex=10;
+	// 		pre=this;
+	// 		drag(this.parentNode);
+	// 		}
+	// 	}
+	// }
+function drag(obj){
+	obj.onmousedown=function(e){
+		var ev = e||event;
+		var disX = ev.clientX-obj.offsetLeft;
+		var disY = ev.clientY-obj.offsetTop;
+		document.onmousemove=function(e){
+			var oev = e||window.event;
+			var left = oev.clientX - disX;
+            var top = oev.clientY - disY;
+            obj.style.left = left + 'px'; //更新对象的位置
+            obj.style.top = top + 'px';
+		}
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		}
+	}
+}
+</script>
+</html>
